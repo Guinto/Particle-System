@@ -134,31 +134,3 @@ void model::draw() {
       } glEnd();
    } glPopMatrix();
 }
-
-/**
- * Used to read one line from a file.
- */
-char *readLine(FILE *mesh) {
-   int size;
-   char *line;
-   char c;
-
-   line = (char*)malloc(sizeof(char));
-   size = 0;
-
-   while (1) {
-      c = fgetc(mesh);
-      if (c == EOF) {
-         return NULL;
-      }
-      if (c == '\n') {
-         line = (char*)realloc(line, (size + 1) * sizeof(char));
-         line[size++] = '\0';
-         return line;
-      }
-      
-      line = (char*)realloc(line, (size + 1) * sizeof(char));
-      line[size++] = c;
-   }
-   return NULL;
-}

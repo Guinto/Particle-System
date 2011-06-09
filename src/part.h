@@ -56,7 +56,6 @@ public:
    void readString(char *s);
 
    // Particle System methods
-   void save(); void load();
    void drawStrips(); void drawPoints();
    void resetSystem(pnt3d s); 
    void createParticle(pnt3d souce, pnt3d source_force);

@@ -45,6 +45,7 @@ void display();
 void reshape(int w, int h);
 void loop(int n);
 void screenSaver(float dt);
+char* readLine(FILE *file);
 
 /**
  * Initializes the scene (used in main).
@@ -170,7 +171,64 @@ void resetSystem() {
    for (int i = 0; i < NUM_KEYS; i++) {
       key_states[i] = false;
    }
+}
 
+/**
+ * Saves the system.
+ */
+void save() {
+   FILE *file;
+   file = fopen("save", "w");
+   for (unsigned int i = 0; i < objs.size(); i++) {
+      fputs(objs[i]->toString(), file);
+      fputc('\n', file);
+   }
+   fclose(file);
+}
+
+/**
+ * Loads the system.
+ */
+void load() {
+   FILE *file;
+   file = fopen("save", "r");
+
+   char *s;
+   s = (char*)malloc(5012 * sizeof(char));
+   for (unsigned int i = 0; i < objs.size(); i++) {
+      s = readLine(file); 
+      if (s == NULL) {
+         break;
+      }
+      objs[i]->readString(s);
+   }
+   fclose(file);
+}
+
+/**
+ * Reads in a line.
+ */
+char* readLine(FILE *file) {
+   char *line;
+   char c;
+   int size = 0;
+   line = (char*)malloc(sizeof(char));
+
+   while (1) {
+      c = fgetc(file);
+      if (c == EOF) {
+         return NULL;
+      }
+      line = (char*)realloc(line, (size + 2) * sizeof(char));
+      if (c != '\n') {
+         line[size++] = c;
+      }
+      else {
+         line[size] = '\0';
+         return line;
+      }
+   }
+   return NULL;
 }
 
 /**
@@ -398,10 +456,10 @@ void keyboard(unsigned char key, int x, int y) {
          if (!follow) { cam.setFocus(pnt3d(0, 0, 0)); }
          break;
       case '9':
-         general((char*)"load");
+         load();
          break;
       case '(': 
-         general((char*)"save");
+         save();
          break;
 
 

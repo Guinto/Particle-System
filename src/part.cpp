@@ -156,8 +156,6 @@ void particleSystem::general(char *value) {
    else if (!strcmp(value, "is_point")) is_points = !is_points;
    else if (!strcmp(value, "switch_mesh")) createPoints();
    else if (!strcmp(value, "type")) switchType();
-   else if (!strcmp(value, "save")) save();
-   else if (!strcmp(value, "load")) load();
 }
 
 /**
@@ -541,42 +539,13 @@ void particleSystem::createParticle(pnt3d src, pnt3d s_f) {
 }
 
 /**
- * Saves the particle system to a file.
- */
-void particleSystem::save() {
-   FILE *file;
-   file = fopen("save", "w");
-   fputs(toString(), file);
-   fclose(file);
-}
-
-/**
- * Loads the particle system from a file.
- */
-void particleSystem::load() {
-   FILE *file;
-   file = fopen("save", "r");
-
-   char *s;
-   s = (char*)malloc(5012 * sizeof(char));
-   errno = 0;
-   if (!(fgets(s, 5012, file))) {
-      if (errno != 0) {
-         perror("fgets");
-      }
-   }
-   readString(s);
-   fclose(file);
-}
-
-/**
  * Used for setting to a string.
  */
 char* particleSystem::toString() {
    char *s;
    s = (char*)malloc(5012 * sizeof(char));
    sprintf(s, "%s, %s, %s, %s, %f %f %f %d %s %s %d %d %d %d %s, %s, %s, \
-         %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %d %d %d\n", 
+         %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %d %d %d", 
          init_pos.toString(), pos.toString(), old_pos.toString(), 
          source_force.toString(), timer, frequency, 
          mesh_size, points_flag, type, tex, frames, r, cif, retract_flag,
