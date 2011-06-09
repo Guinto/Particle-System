@@ -20,6 +20,7 @@ class ground: public obj {
       //Overriden methods
       void draw();
       void update(float dt);
+      char* toString();
 
       //Other methods
       void setRGB(float new_rgb[]);

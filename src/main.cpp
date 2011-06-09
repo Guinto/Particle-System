@@ -45,7 +45,10 @@ void display();
 void reshape(int w, int h);
 void loop(int n);
 void screenSaver(float dt);
+
+// Helper Functions
 char* readLine(FILE *file);
+char* readWord(FILE *file);
 
 /**
  * Initializes the scene (used in main).
@@ -187,48 +190,42 @@ void save() {
 }
 
 /**
+ * Adds an object from the save file.
+ */
+void addObj(char *s) {
+   if (!strcmp(s, "ground")) {
+      objs.push_back(new ground());
+   }
+   else if (!strcmp(s, "particleSystem")) { 
+      objs.push_back(new particleSystem(pnt3d(0, 0, 0)));
+   }
+}
+
+/**
  * Loads the system.
  */
 void load() {
    FILE *file;
    file = fopen("save", "r");
 
+   objs.clear();
+
    char *s;
    s = (char*)malloc(5012 * sizeof(char));
-   for (unsigned int i = 0; i < objs.size(); i++) {
+   while (1) {
+      s = readWord(file);
+      if (s == NULL) {
+         break;
+      }
+      addObj(s);
+
       s = readLine(file); 
       if (s == NULL) {
          break;
       }
-      objs[i]->readString(s);
+      objs.back()->readString(s);
    }
    fclose(file);
-}
-
-/**
- * Reads in a line.
- */
-char* readLine(FILE *file) {
-   char *line;
-   char c;
-   int size = 0;
-   line = (char*)malloc(sizeof(char));
-
-   while (1) {
-      c = fgetc(file);
-      if (c == EOF) {
-         return NULL;
-      }
-      line = (char*)realloc(line, (size + 2) * sizeof(char));
-      if (c != '\n') {
-         line[size++] = c;
-      }
-      else {
-         line[size] = '\0';
-         return line;
-      }
-   }
-   return NULL;
 }
 
 /**
@@ -392,8 +389,6 @@ void screenSaver(float dt) {
    screen_saver_time += dt;
 }
 
-
-
 /**
  * The keyboard up function that recognizes when a key is released.
  */
@@ -551,4 +546,56 @@ int main(int argc, char *argv[]) {
    initScene();
 
    glutMainLoop();
+}
+
+/**
+ * Reads in a word.
+ */
+char* readWord(FILE *file) {
+   char *word;
+   char c;
+   int size = 0;
+   word = (char*)malloc(sizeof(char));
+
+   while (1) {
+      c = fgetc(file);
+      if (c == EOF) {
+         return NULL;
+      }
+      word = (char*)realloc(word, (size + 2) * sizeof(char));
+      if (c != ' ') {
+         word[size++] = c;
+      }
+      else {
+         word[size] = '\0';
+         return word;
+      }
+   }
+   return NULL;
+}
+
+/**
+ * Reads in a line.
+ */
+char* readLine(FILE *file) {
+   char *line;
+   char c;
+   int size = 0;
+   line = (char*)malloc(sizeof(char));
+
+   while (1) {
+      c = fgetc(file);
+      if (c == EOF) {
+         return NULL;
+      }
+      line = (char*)realloc(line, (size + 2) * sizeof(char));
+      if (c != '\n') {
+         line[size++] = c;
+      }
+      else {
+         line[size] = '\0';
+         return line;
+      }
+   }
+   return NULL;
 }

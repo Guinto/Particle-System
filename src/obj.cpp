@@ -122,7 +122,7 @@ float pnt3d::distBetweenV(vec3d o) {
  */
 char* pnt3d::toString() {
    char *s;
-   s = (char*)malloc(64 * sizeof(char));
+   s = (char*)malloc(32 * sizeof(char));
    sprintf(s, "%f %f %f", x, y, z);
    return s;
 }

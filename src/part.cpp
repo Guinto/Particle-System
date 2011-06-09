@@ -544,8 +544,9 @@ void particleSystem::createParticle(pnt3d src, pnt3d s_f) {
 char* particleSystem::toString() {
    char *s;
    s = (char*)malloc(5012 * sizeof(char));
-   sprintf(s, "%s, %s, %s, %s, %f %f %f %d %s %s %d %d %d %d %s, %s, %s, \
-         %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %d %d %d", 
+   sprintf(s, "particleSystem %s, %s, %s, %s, %f %f %f %d %s %s %d %d %d \
+         %d %s, %s, %s, %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f \
+         %d %d %d", 
          init_pos.toString(), pos.toString(), old_pos.toString(), 
          source_force.toString(), timer, frequency, 
          mesh_size, points_flag, type, tex, frames, r, cif, retract_flag,
