@@ -470,10 +470,13 @@ void keyboard(unsigned char key, int x, int y) {
       case '\'': case '\"':
          general((char*)"retract_flag");
          break;
-      case '1': case '!':
+      case '1': 
          objs.push_back(new particleSystem(pnt3d(rand() % 10 - 5,
                                                  rand() % 10 - 5,
                                                  rand() % 10 - 5)));
+         break;
+      case '!':
+         objs.pop_back();
          break;
       case '5': case '%':
          general((char*)"points_flag");
