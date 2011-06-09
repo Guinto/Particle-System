@@ -272,7 +272,7 @@ void particleSystem::downGV() { (dgv < 20) ? dgv -= X_SMALL_CHANGE : 0; }
 /** Increase Size */
 void particleSystem::upS() { (ds < 4) ? ds += SMALL_CHANGE : 0; } 
 /** Decrease Size */
-void particleSystem::downS() { (ds > 0.01) ? ds -= SMALL_CHANGE : 0; }
+void particleSystem::downS() { (ds > 0.02) ? ds -= SMALL_CHANGE : 0; }
 /** Increase Size End */
 void particleSystem::upES() { (des < 40) ? des += SMALL_CHANGE : 0; } 
 /** Decrease Size End */
