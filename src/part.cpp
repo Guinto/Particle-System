@@ -575,17 +575,14 @@ void particleSystem::load() {
 char* particleSystem::toString() {
    char *s;
    s = (char*)malloc(5012 * sizeof(char));
-   sprintf(s, "%s %s %s %f %f %f %d %s %s %d %d %d %d %s %s %s %f %f %f \
-         %f %f %f %f %f %f %f %f %f %f %f %f %d %d %d\n", 
-         init_pos.toString(), old_pos.toString(), 
+   sprintf(s, "%s, %s, %s, %s, %f %f %f %d %s %s %d %d %d %d %s, %s, %s, \
+         %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %d %d %d\n", 
+         init_pos.toString(), pos.toString(), old_pos.toString(), 
          source_force.toString(), timer, frequency, 
          mesh_size, points_flag, type, tex, frames, r, cif, retract_flag,
          velocity_base.toString(), dpv.toString(), df.toString(), dm, dgv, 
          dlt, ds, des, dr, dg, db, der, deg, deb, dcv, dsv, dltv, dvv, 
          is_random_normal, is_line, is_points);
-   /*char *s;
-   s = (char*)malloc(2 * sizeof(char));
-   sprintf(s, "%s\n", old_pos.toString());*/
    return s;
 }
 
@@ -595,12 +592,12 @@ char* particleSystem::toString() {
 void particleSystem::readString(char *s) {
    char *token;
    int temp;
-   token = strtok(s, " "); init_pos.readString(token);
-   token = strtok(NULL, " "); old_pos.readString(token);
-   token = strtok(NULL, " "); source_force.readString(token);
+   token = strtok(s, ","); init_pos.readString(token);
+   token = strtok(NULL, ","); pos.readString(token);
+   token = strtok(NULL, ","); old_pos.readString(token);
+   token = strtok(NULL, ","); source_force.readString(token);
    token = strtok(NULL, " "); sscanf(token, "%f", &timer);
    token = strtok(NULL, " "); sscanf(token, "%f", &frequency);
-   token = strtok(NULL, " "); source_force.readString(token);
    token = strtok(NULL, " "); sscanf(token, "%f", &mesh_size);
    token = strtok(NULL, " "); sscanf(token, "%d", &temp);
    points_flag = (bool)temp;
@@ -613,9 +610,9 @@ void particleSystem::readString(char *s) {
    cif = (bool)temp;
    token = strtok(NULL, " "); sscanf(token, "%d", &temp);
    retract_flag = (bool)temp;
-   token = strtok(NULL, " "); velocity_base.readString(token);
-   token = strtok(NULL, " "); dpv.readString(token);
-   token = strtok(NULL, " "); df.readString(token);
+   token = strtok(NULL, ","); velocity_base.readString(token);
+   token = strtok(NULL, ","); dpv.readString(token);
+   token = strtok(NULL, ","); df.readString(token);
    token = strtok(NULL, " "); sscanf(token, "%f", &dm);
    token = strtok(NULL, " "); sscanf(token, "%f", &dgv);
    token = strtok(NULL, " "); sscanf(token, "%f", &dlt);

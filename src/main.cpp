@@ -398,10 +398,10 @@ void keyboard(unsigned char key, int x, int y) {
          if (!follow) { cam.setFocus(pnt3d(0, 0, 0)); }
          break;
       case '9':
-         general((char*)"save");
+         general((char*)"load");
          break;
       case '(': 
-         general((char*)"load");
+         general((char*)"save");
          break;
 
 

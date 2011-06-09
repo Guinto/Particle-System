@@ -102,7 +102,7 @@ public:
 
    // For Source
 	pnt3d init_pos;
-	pnt3d old_pos;
+	pnt3d old_pos; // Used for calculating the source force
    pnt3d source_force;
    std::vector<pnt3d*> points;
    std::list<part*> particles;

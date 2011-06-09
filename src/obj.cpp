@@ -132,7 +132,8 @@ char* pnt3d::toString() {
  */
 void pnt3d::readString(char *s) {
    char *token;
-   token = strtok(s, " "); sscanf(token, "%f", &x);
-   token = strtok(NULL, " "); sscanf(token, "%f", &y);
-   token = strtok(NULL, " "); sscanf(token, "%f", &z);
+   char *saveptr;
+   token = strtok_r(s, " ", &saveptr); sscanf(token, "%f", &x);
+   token = strtok_r(NULL, " ", &saveptr); sscanf(token, "%f", &y);
+   token = strtok_r(NULL, " ", &saveptr); sscanf(token, "%f", &z);
 }
